@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f6f9f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .language-select {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px;
+        }
+        .flag-icon {
+            width: 35px;
+            height: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .flag-icon:hover {
+            transform: scale(1.1);
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            height: 75vh;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 2.2em;
+            color: #2f855a;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px #d2e7d2;
+        }
+        .input-section {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            font-size: 1em;
+            border-radius: 12px;
+            border: 1px solid #b5dcb3;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(181, 220, 179, 0.3);
+            transition: box-shadow 0.3s;
+        }
+        input[type="text"]:focus {
+            box-shadow: 0 4px 10px rgba(181, 220, 179, 0.5);
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 1em;
+            background-color: #48bb78;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        .recipe-result {
+            background-color: #eaf5e9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            text-align: left;
+        }
+        .reset-button {
+            padding: 12px 24px;
+            font-size: 1em;
+            background-color: #68d391;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .reset-button:hover {
+            background-color: #4caf50;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        .recipe-card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .recipe-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .star-rating {
+            font-size: 1.2em;
+            display: flex;
+            direction: row;
+            gap: 5px;
+        }
+        .star {
+            cursor: pointer;
+            color: lightgray; /* 기본 상태는 회색 */
+            transition: color 0.2s;
+        }
+        .star.hover,
+        .star.selected {
+            color: gold; /* 호버와 선택된 상태는 금색 */
+        }
+        .rating-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #48bb78;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .no-recipes-message {
+            font-size: 1.5em;
+            color: #e53e3e;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-select">
+        <img src="{{ url_for('static', filename='images/us_flag.png') }}" alt="English" class="flag-icon" data-lang="en">
+        <img src="{{ url_for('static', filename='images/kr_flag.png') }}" alt="Korean" class="flag-icon" data-lang="ko">
+        <img src="{{ url_for('static', filename='images/cn_flag.png') }}" alt="Chinese" class="flag-icon" data-lang="zh">
+        <img src="{{ url_for('static', filename='images/jp_flag.png') }}" alt="Japanese" class="flag-icon" data-lang="ja">
+        <img src="{{ url_for('static', filename='images/fr_flag.png') }}" alt="French" class="flag-icon" data-lang="fr">
+        <img src="{{ url_for('static', filename='images/de_flag.png') }}" alt="German" class="flag-icon" data-lang="de">
+    </div>
+    <div class="container">
+        <h1>{{ title }} 🍴</h1>
+        <div class="input-section">
+            <input type="text" id="ingredients-input" placeholder="{{ input_placeholder }}">
+        </div>
+        <button id="generate-recipe-btn">{{ generate_button }}</button>
+        <button id="reset-preferences-btn" class="reset-button">{{ reset_button }}</button>
+        <div id="recipe-results" class="recipe-result"></div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.flag-icon').forEach(flag => {
+            flag.addEventListener('click', function() {
+                const language = this.getAttribute('data-lang');
+                changeLanguage(language);
+            });
+        });
+
+        function changeLanguage(language) {
+            fetch('/change_language', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'language=' + encodeURIComponent(language)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload(); // 언어가 변경되면 페이지를 새로고침
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        document.getElementById('generate-recipe-btn').addEventListener('click', function() {
+            const ingredients = document.getElementById('ingredients-input').value;
+
+            fetch('/get_recipes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    ingredients: ingredients, 
+                    language: "{{ language }}" // 현재 언어를 서버에 전달
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0 && data[0].message) {
+                    displayNoRecipesMessage(data[0].message);
+                } else {
+                    displayRecipes(data);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        function displayRecipes(recipes) {
+            const resultsDiv = document.getElementById('recipe-results');
+            resultsDiv.innerHTML = ''; // 결과 초기화
+            if (recipes.length === 0) {
+                displayNoRecipesMessage('추천할만한 레시피가 없습니다.');
+                return;
+            }
+
+            recipes.forEach(recipe => {
+                const recipeDiv = document.createElement('div');
+                recipeDiv.className = 'recipe-card';
+                recipeDiv.innerHTML = `
+                    <h2>${recipe.recipe_name}</h2>
+                    <img src="${recipe.img_src}" alt="${recipe.recipe_name}" class="recipe-image">
+                    <p>${recipe.instructions}</p>
+                    <div class="star-rating" data-recipe="${recipe.recipe_name}" data-selected="0">
+                        ${generateStarRatingHTML(0)} <!-- 초기 상태는 별점이 0으로 설정 -->
+                    </div>
+                `;
+                resultsDiv.appendChild(recipeDiv);
+            });
+
+            attachRatingEvents();
+        }
+
+        function displayNoRecipesMessage(message) {
+            const resultsDiv = document.getElementById('recipe-results');
+            resultsDiv.innerHTML = `<p class="no-recipes-message">${message}</p>`;
+        }
+
+        function generateStarRatingHTML(selectedRating) {
+            let starsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                starsHtml += `<span class="star ${i <= selectedRating ? 'selected' : ''}" data-rating="${i}">&#9733;</span>`;
+            }
+            return starsHtml;
+        }
+
+        function attachRatingEvents() {
+            document.querySelectorAll('.star-rating .star').forEach(star => {
+                star.addEventListener('mouseover', function() {
+                    const rating = this.getAttribute('data-rating');
+                    updateStarColors(this.parentElement, rating);
+                });
+                star.addEventListener('mouseout', function() {
+                    resetStarColors(this.parentElement);
+                });
+                star.addEventListener('click', function() {
+                    const rating = this.getAttribute('data-rating');
+                    this.parentElement.setAttribute('data-selected', rating);
+                    rateRecipe(this.parentElement.getAttribute('data-recipe'), rating);
+                });
+            });
+        }
+
+        function rateRecipe(recipeName, rating) {
+            fetch('/rate_recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "recipe_name": recipeName, "rating": parseInt(rating) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!document.querySelector('.rating-alert')) {
+                    const alert = document.createElement('div');
+                    alert.className = 'rating-alert';
+                    alert.innerText = data.message;
+                    document.body.appendChild(alert);
+                    setTimeout(() => alert.remove(), 2000);
+                }
+                updateStarRatings(recipeName, rating);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateStarRatings(recipeName, rating) {
+            document.querySelectorAll('.star-rating').forEach(starRating => {
+                if (starRating.getAttribute('data-recipe') === recipeName) {
+                    starRating.innerHTML = generateStarRatingHTML(rating);
+                    starRating.setAttribute('data-selected', rating); // 업데이트된 별점 반영
+                    attachRatingEvents(); // 새로운 별점 이벤트 재연결
+                }
+            });
+        }
+
+        function updateStarColors(starRating, rating) {
+            starRating.querySelectorAll('.star').forEach(star => {
+                if (parseInt(star.getAttribute('data-rating')) <= parseInt(rating)) {
+                    star.classList.add('hover');
+                } else {
+                    star.classList.remove('hover');
+                }
+            });
+        }
+
+        function resetStarColors(starRating) {
+            const selectedRating = starRating.getAttribute('data-selected') || 0;
+            starRating.querySelectorAll('.star').forEach(star => {
+                star.classList.remove('hover');
+                if (parseInt(star.getAttribute('data-rating')) <= parseInt(selectedRating)) {
+                    star.classList.add('selected');
+                } else {
+                    star.classList.remove('selected');
+                }
+            });
+        }
+
+        document.getElementById('reset-preferences-btn').addEventListener('click', function() {
+            fetch('/reset_preferences', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload(); // 선호도 초기화 후 페이지를 새로고침
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
