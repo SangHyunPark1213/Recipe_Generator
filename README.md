@@ -1,4 +1,4 @@
-# Recipe_Generator
+# Recipe Recommendation System
 
 ## Overview
 This project is a recipe recommendation system that suggests recipes based on user-provided ingredients. The system uses natural language processing to match the ingredients with a database of recipes and recommends the most relevant ones. Users can rate the recipes, and recipes rated with 1 star are excluded from future recommendations until preferences are reset.
