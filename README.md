@@ -16,12 +16,12 @@ This is a Flask-based web application that provides personalized recipe recommen
   - `index.html`: The main HTML file that renders the UI, including the ingredient input, language selection, and recipe display.
 - `static/`
   - `css/`: Contains CSS files for styling the application.
-  - `js/`: Contains JavaScript files for handling front-end logic such as rating and updating recipes in real-time.
-  - `images/`: Contains flag icons and other static images used in the UI.
+  - `images/`: Contains flag icons used in the UI.
 - `user_data.db`: The SQLite database file that stores user preferences and search history.
 - `recipes.csv`: The dataset containing recipe information, including ingredients, directions, ratings, and images.
 - `requirements.txt`: Lists all Python dependencies required to run the project.
-- `README.md`: The file you are reading now, which provides an overview of the project and instructions for setup and usage.
+
+## Requirements
 
 ## Setup and Installation
 1. **Clone the repository**:
