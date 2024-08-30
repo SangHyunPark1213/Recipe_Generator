@@ -4,10 +4,11 @@
 This is a Flask-based web application that provides personalized recipe recommendations based on the ingredients input by the user, while considering the user's country preferences and prior ratings. The application uses a GPT-4o model for data preprocessing, Google Cloud Translation API for language translation, and a SQLAlchemy-based database for managing user preferences and search history.
 
 ## Features
-- **Ingredient-based Recipe Search**: Enter ingredients and get recipe suggestions.
-- **Multilingual Support**: Supports multiple languages including English, Korean, Chinese, Japanese, French, and German.
-- **User Preferences**: Users can rate recipes, and those rated with 1 star will be excluded from future recommendations.
-- **Responsive Design**: The UI adapts to different screen sizes.
+- **Personalized Recipe Recommendations**: Users input ingredients, and the application generates top recipe recommendations by considering the ingredients and the user's country preferences. Recipes are filtered based on user preferences, including excluding low-rated recipes.
+- **Language Selection**: Users can select their preferred language from a variety of options, including English, Korean, Chinese, Japanese, French, and German. All displayed texts (titles, buttons, placeholders, etc.) will be translated into the selected language using Google Cloud Translation API.
+- **Recipe Rating System**: Users can rate recipes on a scale of 1-5 stars. Recipes rated with a score of 1 are excluded from future recommendations unless preferences are reset.
+- **Country Preference**: The application prioritizes recommending recipes that are popular in the user’s selected country.
+- **Preference Reset**: Users can reset their recipe preferences, allowing previously excluded recipes to appear again in recommendations.
 
 ## Project Structure
 - `app.py`: The main Flask application that handles the backend logic, including the recommendation engine and user preferences.
