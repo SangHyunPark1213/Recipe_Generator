@@ -1,7 +1,7 @@
 # Recipe Recommendation System
 
 ## Overview
-This project is a recipe recommendation system that suggests recipes based on user-provided ingredients. The system uses natural language processing to match the ingredients with a database of recipes and recommends the most relevant ones. Users can rate the recipes, and recipes rated with 1 star are excluded from future recommendations until preferences are reset.
+This is a Flask-based web application that provides personalized recipe recommendations based on the ingredients input by the user, while considering the user's country preferences and prior ratings. The application uses a GPT-4o model for data preprocessing, Google Cloud Translation API for language translation, and a SQLAlchemy-based database for managing user preferences and search history.
 
 ## Features
 - **Ingredient-based Recipe Search**: Enter ingredients and get recipe suggestions.
