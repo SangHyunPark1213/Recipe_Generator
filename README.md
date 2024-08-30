@@ -22,6 +22,11 @@ This is a Flask-based web application that provides personalized recipe recommen
 - `requirements.txt`: Lists all Python dependencies required to run the project.
 
 ## Requirements
+Flask==2.1.1
+pandas==1.4.2
+scikit-learn==1.0.2
+google-cloud-translate==3.0.2
+Flask-SQLAlchemy==2.5.1
 
 ## Setup and Installation
 1. **Clone the repository**:
