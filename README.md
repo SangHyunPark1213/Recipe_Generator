@@ -22,11 +22,11 @@ This is a Flask-based web application that provides personalized recipe recommen
 - `requirements.txt`: Lists all Python dependencies required to run the project.
 
 ## Requirements
-- 'Flask'==2.1.1
-- 'pandas'==1.4.2
-- 'scikit-learn'==1.0.2
-- 'google-cloud-translate'==3.0.2
-- 'Flask-SQLAlchemy'==2.5.1
+- Flask==2.1.1
+- pandas==1.4.2
+- scikit-learn==1.0.2
+- google-cloud-translate==3.0.2
+- Flask-SQLAlchemy==2.5.1
 
 ## Setup and Installation
 1. **Clone the repository**:
@@ -56,14 +56,12 @@ This is a Flask-based web application that provides personalized recipe recommen
     Open your web browser and go to `http://127.0.0.1:5000/`.
 
 ## Usage
-- Enter the ingredients in the input box, separated by commas.
 - Select your preferred language using the flag icons.
+- Enter the ingredients in the input box, separated by commas.
 - Click "Generate Recipes" to see recipe suggestions.
 - Rate the recipes, and those you rate with 1 star will not appear in future suggestions.
 - To reset your preferences, click "Reset Preferences".
 
-## Contributing
-If you'd like to contribute to this project, please fork the repository and use a feature branch. Pull requests are welcome.
-
-## License
-This project is licensed under the MIT License.
+## Future Work
+- **NLP-Based Detailed Recipe Suggestions**: Using Language Processing (NLP) to understand more detailed user inputs and provide more personalized and accurate recipe suggestions.
+- **Expanded Data Integration**: Expanding the ingredient database to include a wider variety of foods and recipes, improving the accuracy and variety of recipe matches.
